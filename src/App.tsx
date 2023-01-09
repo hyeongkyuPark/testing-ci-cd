@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: React.FC = () => {
+	const [count, setCount] = useState(0);
+	const [isDisabled, setIsDisabled] = useState(false);
+
+	const handleClickMinus = (): void => {
+		setCount((prev) => prev - 1);
+	};
+
+	const handleClickPlus = (): void => {
+		setCount((prev) => prev + 1);
+	};
+
+	const toggleDisabled = (): void => {
+		setIsDisabled((prev) => !prev);
+	};
+
+	return (
+		<div className="App">
+			<h3 data-testid="counter">{count}</h3>
+			<button
+				data-testid="minus-button"
+				onClick={handleClickMinus}
+				disabled={isDisabled}
+			>
+				-
+			</button>
+			<button
+				data-testid="plus-button"
+				onClick={handleClickPlus}
+				disabled={isDisabled}
+			>
+				+
+			</button>
+			<button
+				style={{ backgroundColor: 'blue' }}
+				data-testid="on-off-button"
+				onClick={toggleDisabled}
+			>
+				on/off
+			</button>
+		</div>
+	);
+};
 
 export default App;
