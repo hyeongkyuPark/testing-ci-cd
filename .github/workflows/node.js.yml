@@ -29,10 +29,20 @@ jobs:
     - run: yarn
     - run: yarn run build --if-present
     - run: yarn test
+    - name: Uplad Build Files
+      uses: actions/upload-artifact@v3
+      with:
+        name: react-build-artifact
+        path: ./build
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+    - name: Download Build Files
+      uses: actions/download-artifact@v3
+      with:
+        name: react-build-artifact
+        path: ./build
     - uses: actions/checkout@master
     - uses: awact/s3-action@master
       with:
